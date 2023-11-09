@@ -18,3 +18,4 @@
     - allowed all domains using 'cors'
     - connected to DB using 'mongoose'
 - set up .env to store sensitive data(MONGODB_URL,HOST,etc)
+
