@@ -28,3 +28,18 @@
     - utils/
 - set up react router
     - Inside app.jsx ,wrap app with BrowserRouter and Routes > creates Route for each page
+
+
+# Creating Register Functionality
+* creating frontend design and calling API onSubmit 
+
+- using styled from 'styled-components' 
+    - create FormContainer = styled.div'<here we add styling almost like css>'
+    - wrap register component with this container to apply css
+- add onChange and onSubmit on the form 
+    - create handleChange, setValues of form inputs in a state
+    - handleValidation, validate and show message(toast)-> npm i react-toastify
+    - handleSubmit, if handleValidation return true we'll call our API 
+- index.css ->used Josefin Sans Google fonts and some basic styling
+
+- utils/APIRoutes.js  ->define our API routes
