@@ -11,3 +11,10 @@
 # create node server and express app
 - index.js -> node server using 'http' and listen
 - src/express.config.js -> express app using 'express'
+
+
+# Controlling CORS from server, env and mongoose setup
+- exprss.config.js/ 
+    - allowed all domains using 'cors'
+    - connected to DB using 'mongoose'
+- set up .env to store sensitive data(MONGODB_URL,HOST,etc)

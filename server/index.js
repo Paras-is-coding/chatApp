@@ -1,5 +1,6 @@
 const http = require('http');
 const app = require('./src/config/express.config');
+require('dotenv').config()
 
 // creating node server we'll mount express App here
 const server = http.createServer(app);
@@ -7,10 +8,10 @@ const server = http.createServer(app);
 
 
 // listen to server
-server.listen('3000','localhost',(err)=>{
+server.listen(process.env.PORT,process.env.HOST,(err)=>{
     if(!err){
-        console.log("Server is running at port 3000")
+        console.log(`Server is running at port ${process.env.PORT}`)
         console.log("Press Ctrl+C to disconnect your server")
-        console.log("Use http://loacalhost:3000/ to browse your server" )
+        console.log(`Use http://${process.env.HOST}/${process.env.PORT}/ to browse your server` )
     }
 })
