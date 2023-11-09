@@ -19,3 +19,12 @@
     - connected to DB using 'mongoose'
 - set up .env to store sensitive data(MONGODB_URL,HOST,etc)
 
+# setting up frontend part, public/ 
+- installing dependencies
+    - npm i axios styled-components react-router-dom
+- public/src/
+    - pages/ Register.jsx,Login.jsx,Chat.jsx
+    - components/
+    - utils/
+- set up react router
+    - Inside app.jsx ,wrap app with BrowserRouter and Routes > creates Route for each page
