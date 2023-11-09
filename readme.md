@@ -4,4 +4,10 @@
     - cleanup
 - server/
     - npm init
-    - install dependencies: npm i express mongoose nodemon socket.io bcrypt cors dotenv
+    - npm i express mongoose nodemon socket.io bcrypt cors dotenv ->install dependencies
+    - index.js ->create file
+    - package.json/"start":"nodemon index.js" ->start 
+    
+# create node server and express app
+- index.js -> node server using 'http' and listen
+- src/express.config.js -> express app using 'express'
