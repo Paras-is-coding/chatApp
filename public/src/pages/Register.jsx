@@ -1,110 +1,124 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
-import {ToastContainer,toast} from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import { registerRoute } from '../utils/APIRoutes'
 
 export default function Register() {
+  const navigate = useNavigate();
 
-  const [values,setValues] = useState({
-    username:"",
-    email:"",
-    password:"",
-    confirmPassword:"",
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
 
   })
   const toastOptions = {
-    position:"bottom-right",
-    autoClose:8000,
-    pauseOnHover:true,
-    draggable:true,
-    theme:"dark"
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark"
   };
 
 
-  const handleChange = (e)=>{
-    setValues((prev)=>({...prev,[e.target.name]:e.target.value}))
+  const handleChange = (e) => {
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleValidation = ()=>{
-    const {username,email,password,confirmPassword} = values;
+  const handleValidation = () => {
+    const { username, email, password, confirmPassword } = values;
 
-    if(password != confirmPassword){
-      toast.error("Password and confirm password should be same!",toastOptions)
+    if (password != confirmPassword) {
+      toast.error("Password and confirm password should be same!", toastOptions)
       return false;
-    }else if(username.length <3){
-      toast.error("Username should be greater than 3 characters!",toastOptions)
+    } else if (username.length < 3) {
+      toast.error("Username should be greater than 3 characters!", toastOptions)
       return false;
-    }else if(password.length<8){
-      toast.error("Password should be greater than or equal to 8 characters!",toastOptions)
+    } else if (password.length < 8) {
+      toast.error("Password should be greater than or equal to 8 characters!", toastOptions)
       return false;
-    }else if(email === ""){
-      toast.error("Email is required!",toastOptions)
+    } else if (email === "") {
+      toast.error("Email is required!", toastOptions)
       return false;
     }
     return true;
   }
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(handleValidation()){
-      const {username,email,password} = values;
-      const {data} = await axios.post(registerRoute,{
-        username,
-        email,
-        password
-      });
+    if (handleValidation()) {
+      const { username, email, password } = values;
+      try {
+        const response = await axios.post(registerRoute, {
+          username,
+          email,
+          password
+        });
+        console.log(response)
+        localStorage.setItem("chat-app-user", JSON.stringify(response.data.result))
+        setValues({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        })
+        navigate('/')
+      } catch (error) {
+        toast.error(error.response.data.message, toastOptions)
+      }
 
     }
   }
   return (
     <>
-    <FormContainer>
-      <form onSubmit={(e)=>handleSubmit(e)}>
-        <div className='brand'>
-          <img src={Logo} alt='logo'/>
-          <h1>snappy</h1>
-        </div>
+      <FormContainer>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className='brand'>
+            <img src={Logo} alt='logo' />
+            <h1>snappy</h1>
+          </div>
 
-        <input
-        type='text'
-        placeholder='username'
-        name='username'
-        value={values.username}
-        onChange={(e)=>handleChange(e)}
-        />
-        <input
-        type='email'
-        placeholder='email'
-        name='email'
-        value={values.email}
-        onChange={(e)=>handleChange(e)}
-        />
-        <input
-        type='password'
-        placeholder='password'
-        name='password'
-        onChange={(e)=>handleChange(e)}
-        />
-        <input
-        type='password'
-        placeholder='Confirm Password'
-        name='confirmPassword'
-        value={values.confirmPassword}
-        onChange={(e)=>handleChange(e)}
-        />
+          <input
+            type='text'
+            placeholder='username'
+            name='username'
+            value={values.username}
+            onChange={(e) => handleChange(e)}
+          />
+          <input
+            type='email'
+            placeholder='email'
+            name='email'
+            value={values.email}
+            onChange={(e) => handleChange(e)}
+          />
+          <input
+            type='password'
+            placeholder='password'
+            name='password'
+            onChange={(e) => handleChange(e)}
+          />
+          <input
+            type='password'
+            placeholder='Confirm Password'
+            name='confirmPassword'
+            value={values.confirmPassword}
+            onChange={(e) => handleChange(e)}
+          />
 
-        <button type='submit'>Create User</button>
-        <span>
-          Already have an account? <Link to="/login">Login</Link>
-        </span>
+          <button type='submit'>Create User</button>
+          <span>
+            Already have an account? <Link to="/login">Login</Link>
+          </span>
 
-      </form>
-    </FormContainer>
-    <ToastContainer/>
+        </form>
+      </FormContainer>
+      <ToastContainer />
     </>
   )
 }

@@ -43,3 +43,13 @@
 - index.css ->used Josefin Sans Google fonts and some basic styling
 
 - utils/APIRoutes.js  ->define our API routes
+
+* creating API for handling '/register'
+
+- src/app/controllers,routers,models,services & src/router
+- create userModel/Controller/Router.js files
+- userController/ register middleware ->store data using UserModel 
+    - use bcrypt.js for password enc
+- Now in resigter page
+    - if response.status != 200 toast error message
+    - otherwise clear form, save user to localhost and navigate to '/' chat page

@@ -1,5 +1,5 @@
 const http = require('http');
-const app = require('./src/config/express.config');
+const app = require('./src/config/express.config.js');
 require('dotenv').config()
 
 // creating node server we'll mount express App here
