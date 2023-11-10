@@ -23,13 +23,40 @@ register = async (req,res,next)=>{
         password:hashedPassword
     };
     const registerResponse = await userSvc.registerUser(user);
-    const {password:psw,...rest} = registerResponse._doc;
+    const {password:psw,...rest} = registerResponse.toObject();
     res.json({
         result:rest,
         message:"User registered successfully!",
         meta:null
     })
 }
+   } catch (error) {
+        next(error)
+   }
+}
+
+
+
+login = async (req,res,next)=>{
+   try {
+    const{username,password} = req.body;
+
+    const userDetails = await userSvc.getUserByFilter({username})
+    if(!userDetails){
+        next({code:400,message:"Incorrect username or password!"})
+    }else{
+        const checkPassword = bcrypt.compareSync(password,userDetails.password);
+        if(!checkPassword){
+            next({code:400,message:"Incorrect username or password!"})
+        }else{
+            const{password:psw,...rest} = userDetails.toObject();
+            res.json({
+                result:rest,
+                message:"Logged in successfully!",
+                meta:null
+            })
+        }
+    }
    } catch (error) {
         next(error)
    }

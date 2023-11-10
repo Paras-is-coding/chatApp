@@ -53,3 +53,16 @@
 - Now in resigter page
     - if response.status != 200 toast error message
     - otherwise clear form, save user to localhost and navigate to '/' chat page
+
+
+
+# Creating login functionality
+- Copy paste register page to login and make some changes
+- create API in backend for login route
+    - make login controller and route
+    - check for username and match password using bcrypt if user exist
+    - send user as resoponse removing password
+
+- IF there is user in local storage redirect user to chat page
+    - Create useEffect(()=>{},[]) inside login and register page 
+    - Here we just checked if there is 'chat-app-user' in localstorage,If so redirected to chat page
