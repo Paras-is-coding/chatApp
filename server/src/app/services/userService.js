@@ -20,7 +20,21 @@ class UserService{
             
         }
     }
+
+
+    updateUser = async (filter,data)=>{
+        try {
+            let response = await UserModel.findOneAndUpdate(filter,{
+                $set:data
+            })
+            return response;
+        } catch (except) {
+            throw except;            
+        }
+    }
+
 }
+
 
 
 const userSvc = new UserService()

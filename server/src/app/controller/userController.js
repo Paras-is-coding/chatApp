@@ -63,6 +63,25 @@ login = async (req,res,next)=>{
 }
 
 
+setAvatar = async(req,res,next)=>{
+    try {
+        const userId = req.params.id;
+        const avatarImage = req.body.image;
+        const userData = await userSvc.updateUser({_id:userId},{
+            isAvatarSet:true,
+            avatar:avatarImage
+        })
+console.log(userData)
+        res.json({
+           isSet:userData.isAvatarSet,
+           image:userData.avatar 
+        })
+
+    } catch (error) {
+        next(error)        
+    }
+}
+
 
 }
 

@@ -66,3 +66,21 @@
 - IF there is user in local storage redirect user to chat page
     - Create useEffect(()=>{},[]) inside login and register page 
     - Here we just checked if there is 'chat-app-user' in localstorage,If so redirected to chat page
+
+
+# Creating the avatar functionality
+- create page SetAvatar.jsx 
+    - const api = "https://api.multiavatar.com/45678945"  ->api that gives us random avatar when we pass random number
+    - const Container = styled.div`<write css here>`  ->and wrap component with <Container></Container>
+    - npm i buffer  ->for storing image.data in form of  base64 string in array
+    - Now images are fetched display using avatars.map() and apply CSS to the page
+
+    - setProfilePicture = () =>{}
+        - see if selectedAvatar is not undefined set error if so 
+        - else get user from localstorage and call setAvatarRoute with user._id and payload image:avatars[selectedAvatar]
+
+- backend
+    - create route for '/setAvatar/:id'
+    - create setAvatar controller
+
+- also use useEffect() to navigate to login if there's no 'chat-app-user' in localstorage
