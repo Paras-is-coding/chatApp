@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { allUsersRoute } from '../utils/APIRoutes';
 import Contacts from '../components/Contacts'
+import Welcome from '../components/Welcome';
 
 export default function Chat() {
 
@@ -60,7 +61,13 @@ export default function Chat() {
             <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange}/>
                    ) : (
             <p>Loading contacts...</p>
-          )}      
+          )}
+
+          {
+            currentUser && (
+              <Welcome currentUser={currentUser}/> 
+            )
+          }     
       </div>
     </Container>
   )
