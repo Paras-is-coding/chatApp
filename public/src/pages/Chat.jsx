@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
@@ -12,31 +11,51 @@ export default function Chat() {
   const [currentUser,setCurrentUser] = useState(undefined);
   const navigate = useNavigate();
 
-  useEffect(async()=>{
-      if(!localStorage.getItem('chat-app-user')){
+  useEffect(()=>{
+      const userCheck = async ()=>{
+        if(!localStorage.getItem('chat-app-user')){
           navigate('/login');
       }else{
-          setCurrentUser(await JSON.parse(localStorage.getItem("chat-app-user")))
+          const localStorageUser = await JSON.parse(localStorage.getItem("chat-app-user"))
+          setCurrentUser(localStorageUser)
+        }
       }
+      userCheck()
   },[])
-  useEffect(async()=>{
+
+
+  useEffect(()=>{
+     const getContacts = async()=>{
       if(currentUser){
-          // call API
-          if(currentUser.isAvatarSet){
-              const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-              setContacts(data.data);
-          }else{
-              navigate('/setAvatar')
-          }
-           
+        try{
+        // call API
+        if(currentUser.isAvatarSet){
+            const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+            setContacts(data.data.result);
+            console.log(contacts)
+            console.log(data.data.result)
+        }else{
+            navigate('/setAvatar')
+        }
+      }catch(error){
+        console.log('Error fetching contacts:',error)
       }
-  },[])
+    }
+     }
+     
+     getContacts()
+  },[currentUser])
+
 
 
   return (
     <Container>
       <div className="container">
-        <Contacts contacts={contacts} currentUser={currentUser}/>
+         {contacts.length > 0 ? (
+            <Contacts contacts={contacts} currentUser={currentUser} />
+                   ) : (
+            <p>Loading contacts...</p>
+          )}      
       </div>
     </Container>
   )

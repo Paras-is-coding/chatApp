@@ -97,3 +97,5 @@
         - Else navigate to login page
     - make Contacts.jsx component
         - Call that in Chat.jsx page passing contacts and currentUser props
+        - user useEffect to change currentUser att. while change in currentUser
+        - display logo&appname, contacts and currentUser
