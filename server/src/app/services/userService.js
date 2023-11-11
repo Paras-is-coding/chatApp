@@ -33,6 +33,21 @@ class UserService{
         }
     }
 
+
+    getAllUsers = async (req)=>{
+        try {
+            const users = await UserModel.find({_id:{$ne:req.params.id}}).select([
+                "email",
+                "username",
+                "avatar",
+                "_id"
+            ]);
+            return users;
+        } catch (error) {
+            throw error            
+        }
+    }
+
 }
 
 

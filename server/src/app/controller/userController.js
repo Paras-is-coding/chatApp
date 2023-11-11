@@ -71,12 +71,25 @@ setAvatar = async(req,res,next)=>{
             isAvatarSet:true,
             avatar:avatarImage
         })
-console.log(userData)
         res.json({
            isSet:userData.isAvatarSet,
            image:userData.avatar 
         })
 
+    } catch (error) {
+        next(error)        
+    }
+}
+
+
+getAllUsers = async(req,res,next)=>{
+    try {
+        const users = await userSvc.getAllUsers(req);
+        return res.json({
+            result:users,
+            message:"Users fetched successfully!",
+            meta:null
+        })
     } catch (error) {
         next(error)        
     }

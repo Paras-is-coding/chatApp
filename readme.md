@@ -84,3 +84,16 @@
     - create setAvatar controller
 
 - also use useEffect() to navigate to login if there's no 'chat-app-user' in localstorage
+
+
+# Begin our chat section
+* Design Chat.jsx page
+    - wrap page with <Container></Container> using styled.div``
+    - inside that make div.container, style both of them
+ 
+    - In Chat.jsx
+        - If there's user in localstorage,
+        - fetch contacts for DB, for that make route and API
+        - Else navigate to login page
+    - make Contacts.jsx component
+        - Call that in Chat.jsx page passing contacts and currentUser props
