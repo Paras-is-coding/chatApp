@@ -14,6 +14,7 @@ export default function Chat() {
   const navigate = useNavigate();
   const [currentChat,setCurrentChat] = useState(undefined)
 
+
   useEffect(()=>{
       const userCheck = async ()=>{
         if(!localStorage.getItem('chat-app-user')){

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Logout from './Logout'
 
 export default function ChatContainer({currentChat}) {
   return (
@@ -19,6 +20,7 @@ export default function ChatContainer({currentChat}) {
                     <h3>{currentChat.username}</h3>
                 </div>
             </div>
+            <Logout/>
         </div>
 
 

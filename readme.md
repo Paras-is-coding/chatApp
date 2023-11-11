@@ -121,4 +121,8 @@
 - Chat.jsx/ if currentChat is undefined render Welcome compo Else render ChatContainer
 - ChatContainer.jsx ->We'll have three sections here, header chatmessages and chatinput
     * Main logic of our chat application will come here.... 
-- 
+- header contains chatUser avatar,name and on rightside logout component
+    - Creating Logout.jsx component
+        - install react icons
+        - import useNavigate, styled, BiPowerOff 
+        - onClick to logout button we'll clear localStorage and navigate to login
