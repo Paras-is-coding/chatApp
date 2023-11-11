@@ -126,3 +126,26 @@
         - install react icons
         - import useNavigate, styled, BiPowerOff 
         - onClick to logout button we'll clear localStorage and navigate to login
+
+# Creating ChatInput component for ChatContainer component
+- Mount the component to ChatContainer & pass handleSendMessage function as prop
+- ChatInput 
+    - import styled
+    - npm i emoji-picker-react > import Picker
+    - import IoMdSend and BsEmojiSmileFill react-icons
+    * NOW style the component
+
+    - EMOJI PICKER functionality
+        - create boolean state showEmojiPicker
+        - create handleEmojiPickerHideShow function ->reverse value of showEmojiPicker
+        - onClick on smileemoji call the function AND below that conditionally show <Picker onEmojiClick={handleEmojiClick}/>
+            - In this function append emoji.emoji to msg
+
+    - MESSAGE functionality
+        - create string state msg
+        - set onChange in input to setMsg 
+
+    - Send functionality 
+        - onClick to send button sendChat fn called 
+        - that fn will call handleSendMessage(msg) ie fn came as prop
+
