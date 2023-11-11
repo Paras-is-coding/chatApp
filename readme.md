@@ -99,3 +99,13 @@
         - Call that in Chat.jsx page passing contacts and currentUser props
         - user useEffect to change currentUser att. while change in currentUser
         - display logo&appname, contacts and currentUser
+
+
+* select user in chats functionality
+    - Chat.jsx
+        - create currentChat state
+        - make handleChatChange function > setCurrentChat(chat)
+        - pass this fn as prop to Contacts.jsx
+    - Contacts.jsx
+        - add functionality to changeCurrentChat > setCurrentSelected(index);changeChat(contact)
+
