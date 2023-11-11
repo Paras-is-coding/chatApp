@@ -108,8 +108,17 @@
         - pass this fn as prop to Contacts.jsx
     - Contacts.jsx
         - add functionality to changeCurrentChat > setCurrentSelected(index);changeChat(contact)
-        - call the function add on user/contact onClick
+        - call the function add on user/contact  onClick
 
 * Display welcome component if no user selected otherwise we'll display chats later
     - components/Welcome.jsx
     - we'll pass currentUser from the Chat.jsx
+
+
+
+# Creating chat container component
+- components/ChatContainer.jsx
+- Chat.jsx/ if currentChat is undefined render Welcome compo Else render ChatContainer
+- ChatContainer.jsx ->We'll have three sections here, header chatmessages and chatinput
+    * Main logic of our chat application will come here.... 
+- 

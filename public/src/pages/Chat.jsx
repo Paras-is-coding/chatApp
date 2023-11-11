@@ -5,6 +5,7 @@ import axios from 'axios'
 import { allUsersRoute } from '../utils/APIRoutes';
 import Contacts from '../components/Contacts'
 import Welcome from '../components/Welcome';
+import ChatContainer from '../components/ChatContainer';
 
 export default function Chat() {
 
@@ -64,9 +65,9 @@ export default function Chat() {
           )}
 
           {
-            currentUser && (
-              <Welcome currentUser={currentUser}/> 
-            )
+            (currentChat === undefined)?
+            (currentUser && (<Welcome currentUser={currentUser}/> )) :
+            (currentUser && (<ChatContainer currentChat={currentChat}/>))
           }     
       </div>
     </Container>
