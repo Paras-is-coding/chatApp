@@ -173,3 +173,40 @@
     - use message state to set messages when fetched
 
 - Now we'll map these messags to chat-messages div
+
+# Implementing Socket.io
+- Now we'll implement socket for onetoone chat, so that we don't have to refresh page after sending message
+
+- server/ 
+    - npm i socket.io 
+    - index.js / socket setup
+        - import socket after creating app 
+        - create 'io' after creating server
+
+        * first we had the connection and whenever there's a connection we'll store the chat socket inside the global.chatSocket
+            - whenever user is logged in we'll establish socket conn by 'add-user' event, we'll grab the userId and socket.id and will set it inside the map
+
+            - whenever there's an send-msg socket event emmited we've passed data(to,msg)
+                - if user where message to be send is online
+                 if so, we'll emit msg to that user by msg-receive event also save to DB,   else it'll be stored to DB only
+
+- Chat.jsx/ -> Establish the new socket connection for every user who has been logged in
+    - npm i socket.io-client
+    - import {io} ,  also we'll need useRef() hook
+    - create socket ref
+    - after having currentUser, establish socket connection and emit "add-user"
+    -  pass socket ref to ChatContainer
+
+    - ChatContainer.jsx/
+        - destructure socket
+        - inside handleSendMsg function 
+            - we'll also emit "send-msg" event and
+            - update current messages array by pushing message sent by currentUser
+
+        - create anothe useEffect()
+            - runs when component loads, if we've socket.current we'll emit 'msg-receive' event and store in arrivalMessage state
+        - create another userEffect()
+            - runs everytime new arrivalMessage is there and will add it to messages array
+        - finally create another useEffect()
+            - runs everytime messages array is changed for scrolling to view new messages 
+

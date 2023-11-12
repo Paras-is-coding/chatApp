@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Logout from './Logout'
 import ChatInput from './ChatInput'
 import axios from 'axios'
 import { getAllMsgRoute, sendMessageRoute } from '../utils/APIRoutes'
+import { generateRandomString } from '../utils/helper'
 
-export default function ChatContainer({currentChat,currentUser}) {
+export default function ChatContainer({currentChat,currentUser,socket}) {
     const [messages,seMessages] = useState([]);
+    const [arrivalMessage,setarrivalMessage] = useState(null);
+    const scrollRef = useRef();
 
     useEffect(()=>{
-        const fetchChats = async()=>{
-            const response = await axios.post(getAllMsgRoute,{
-                from: currentUser._id,
-                to: currentChat._id
-            });
-            seMessages(response.data);
+        if(currentChat){
+            const fetchChats = async()=>{
+                const response = await axios.post(getAllMsgRoute,{
+                    from: currentUser._id,
+                    to: currentChat._id
+                });
+                seMessages(response.data);
+            }
+            fetchChats();
         }
-        fetchChats();
     },[currentChat])
 
 
@@ -27,11 +32,44 @@ export default function ChatContainer({currentChat,currentUser}) {
             to:currentChat._id,
             message:msg,
         })
-        console.log(data)
+
+
+        // emit "send-msg" event
+        socket.current.emit("send-msg",{
+            to:currentChat._id,
+            from:currentUser._id,
+            messsage:msg
+        });
+        // update current messages array by pushing message sent by currentUser
+        const msgs = [...messages];
+        msgs.push({fromSelf:true,message:msg})
+        seMessages(msgs)
+
        } catch (error) {
         console.log(error)        
        }
-    }
+    };
+
+    // runs when component loads, if we've socket.current we'll emit 'msg-receive' event
+    useEffect(()=>{
+        if(socket.current){
+            socket.current.on("msg-receive",(msg)=>{
+                setarrivalMessage({fromSelf:false,message:msg});
+            })
+        }
+    },[]);
+
+    // runs everytime new arrivalMessage is there and will add it to messages array
+    useEffect(()=>{
+        arrivalMessage && seMessages((prev)=>[...prev,arrivalMessage]);
+    },[arrivalMessage])
+
+    // for scrolling to view new messages 
+    useEffect(()=>{
+        scrollRef.current?.scrollIntoView({behaviour:"smooth"});
+    },[messages])
+
+
   return (
    <>
    {
@@ -57,7 +95,7 @@ export default function ChatContainer({currentChat,currentUser}) {
             {
                 messages.map((message)=>{
                         return(
-                            <div>
+                            <div ref={scrollRef} key={generateRandomString()}>
                                 <div className={`message ${message.fromSelf ?"sended":"received"}`}>
                                     <div className="content">
                                         <p>
