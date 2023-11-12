@@ -24,7 +24,22 @@ class MessageController{
         }
     }
     getAllMessage = async (req,res,next)=>{
+        try {
+            const {from,to} = req.body;
+            const messages =  await messageSvc.getAllMsg(req);
+            // we return boolean(fromSelf) with each message
+            const projectMessages = messages.map((msg)=>{
+                return({
+                    fromSelf:msg.sender.toString() === from,
+                    message:msg.message.text
+                })
+            });
 
+            res.json(projectMessages)
+
+        } catch (error) {
+            next(error)            
+        }
     }
 }
 

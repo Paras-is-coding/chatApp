@@ -158,4 +158,10 @@
 - AFTER API to addmsg is completed we'll inegrate it to frontend
     - utils/APiRoutes.js/ sendMessageRoute
     - also pass currentUser from Chat.jsx to ChatContainer.jsx
+    - send from,to and message to the route using axios.post
 
+
+
+# creating getmsg API 
+- send from and to to route and fine messages with those 
+- return messages with fromSelf boolean flag
