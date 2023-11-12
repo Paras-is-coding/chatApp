@@ -149,3 +149,13 @@
         - onClick to send button sendChat fn called 
         - that fn will call handleSendMessage(msg) ie fn came as prop
 
+* Sending the message to backend, we'll implement socket later
+- models/messageModel.js ->message.text, users, sender
+- routes/messageRouter.js ->
+- controller/messageController.js -> addMessage,getAllMessage
+- services/messageService.js
+
+- AFTER API to addmsg is completed we'll inegrate it to frontend
+    - utils/APiRoutes.js/ sendMessageRoute
+    - also pass currentUser from Chat.jsx to ChatContainer.jsx
+

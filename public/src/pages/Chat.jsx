@@ -36,8 +36,6 @@ export default function Chat() {
         if(currentUser.isAvatarSet){
             const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
             setContacts(data.data.result);
-            console.log(contacts)
-            console.log(data.data.result)
         }else{
             navigate('/setAvatar')
         }
@@ -68,7 +66,7 @@ export default function Chat() {
           {
             (currentChat === undefined)?
             (currentUser && (<Welcome currentUser={currentUser}/> )) :
-            (currentUser && (<ChatContainer currentChat={currentChat}/>))
+            (currentUser && (<ChatContainer currentChat={currentChat} currentUser={currentUser}/>))
           }     
       </div>
     </Container>
