@@ -165,3 +165,11 @@
 # creating getmsg API 
 - send from and to to route and fine messages with those 
 - return messages with fromSelf boolean flag
+
+# calling getmsg API 
+- crete route in APIRoutes.jsx
+- ChatContainer.jsx/
+    - make useEffect() will fetch allmsg when currentChat is changed
+    - use message state to set messages when fetched
+
+- Now we'll map these messags to chat-messages div
